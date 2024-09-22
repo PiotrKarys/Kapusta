@@ -1,1 +1,0 @@
-//rauty tranzakcji /transaction/

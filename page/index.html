@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kapusta - Serwer działa poprawnie</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+      .container {
+        text-align: center;
+        padding: 2rem;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #4caf50;
+      }
+      p {
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Serwer Kapusta działa poprawnie</h1>
+      <p>Witaj na naszej stronie! Wszystko funkcjonuje tak, jak powinno.</p>
+      <p>Liczba odwiedzin: <span id="counter"><%= visitorCount %></span></p>
+    </div>
+  </body>
+</html>
