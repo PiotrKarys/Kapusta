@@ -1,0 +1,5 @@
+.npm
+.env
+.env.test
+tests\
+node_modules\
