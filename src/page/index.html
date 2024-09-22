@@ -33,7 +33,20 @@
     <div class="container">
       <h1>Serwer Kapusta działa poprawnie</h1>
       <p>Witaj na naszej stronie! Wszystko funkcjonuje tak, jak powinno.</p>
-      <p>Liczba odwiedzin: <span id="counter"><%= visitorCount %></span></p>
+      <p>Liczba odwiedzin: <span id="counter">0</span></p>
     </div>
+    <script>
+      async function fetchVisitorCount() {
+        try {
+          const response = await fetch("/");
+          const data = await response.json();
+          document.getElementById("counter").textContent = data.visitorCount;
+        } catch (error) {
+          console.error("Błąd przy pobieraniu liczby odwiedzin:", error);
+        }
+      }
+
+      window.onload = fetchVisitorCount;
+    </script>
   </body>
 </html>

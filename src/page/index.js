@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
     counter.count += 1;
     await counter.save();
 
-    res.render("index", { visitorCount: counter.count });
+    res.json({ visitorCount: counter.count });
   } catch (error) {
     console.error("Błąd przy aktualizacji licznika:", error);
     res.status(500).send("Wystąpił błąd serwera");
