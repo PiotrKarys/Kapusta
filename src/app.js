@@ -11,7 +11,7 @@ const app = express();
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "./page"));
+app.set("views", path.join(__dirname, "page"));
 
 app.use(logger(formatsLogger));
 app.use(cors());
