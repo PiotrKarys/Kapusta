@@ -43,7 +43,7 @@ async function login(req, res, next) {
       userData: {
         email: user.email,
         balance: user.balance,
-        owner: user.owner,
+        id: user.owner,
         transactions: user.transactions,
       },
     });

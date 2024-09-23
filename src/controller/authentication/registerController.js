@@ -17,7 +17,7 @@ async function signup(req, res, next) {
     const newUser = new User({
       email,
       password: hashedPassword,
-      owner: nanoid(),
+      id: nanoid(),
     });
 
     await newUser.save();

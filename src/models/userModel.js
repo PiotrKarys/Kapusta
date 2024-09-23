@@ -10,7 +10,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  owner: {
+  id: {
     type: String,
     required: true,
     unique: true,
