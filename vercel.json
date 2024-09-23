@@ -8,6 +8,10 @@
     {
       "src": "src/page/**",
       "use": "@vercel/static"
+    },
+    {
+      "src": "assets/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -16,12 +20,16 @@
       "dest": "/src/server.js"
     },
     {
-      "src": "/counter.js",
-      "dest": "/src/page/counter.js"
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
     },
     {
       "src": "/static/(.*)",
       "dest": "/src/page/$1"
+    },
+    {
+      "src": "/cabbage.svg",
+      "dest": "/src/page/cabbage.svg"
     },
     {
       "src": "/(.*)",
