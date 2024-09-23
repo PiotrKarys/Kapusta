@@ -4,9 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kapusta - Serwer działa poprawnie</title>
+    <link
+      rel="icon"
+      href="../../assets/icons/favicon.ico"
+      type="image/x-icon"
+    />
     <style>
       body {
-        font-family: "Arial", sans-serif;
+        font-family: "Comic Sans MS", "Comic Sans", cursive;
         background-color: #f0f0f0;
         margin: 0;
         padding: 0;
@@ -48,6 +53,49 @@
         p {
           font-size: 1rem;
         }
+        .cabbage-svg {
+          display: flex;
+          justify-content: center;
+          margin-top: 20px;
+        }
+
+        .background {
+          position: relative;
+          width: 100vw;
+          height: 100vh;
+          overflow: hidden;
+        }
+        .cabbage {
+          position: absolute;
+          width: 50px;
+          height: auto;
+          opacity: 0.8;
+        }
+        .cabbage:nth-child(1) {
+          top: 10%;
+          left: 20%;
+          transform: rotate(15deg);
+        }
+        .cabbage:nth-child(2) {
+          top: 30%;
+          left: 50%;
+          transform: rotate(-10deg);
+        }
+        .cabbage:nth-child(3) {
+          top: 60%;
+          left: 70%;
+          transform: rotate(25deg);
+        }
+        .cabbage:nth-child(4) {
+          top: 80%;
+          left: 30%;
+          transform: rotate(-20deg);
+        }
+        .cabbage:nth-child(5) {
+          top: 40%;
+          left: 80%;
+          transform: rotate(5deg);
+        }
       }
     </style>
   </head>
@@ -55,6 +103,64 @@
     <div class="container">
       <h1>Serwer Kapusta działa poprawnie</h1>
       <p>Witaj na naszej stronie! Wszystko funkcjonuje tak, jak powinno.</p>
+      <div class="background">
+        <img
+          src="./cabbage.svg"
+          alt="Kapusta"
+          width="89"
+          height="84"
+          class="cabbage-svg"
+        />
+        <img
+          src="./cabbage.svg"
+          alt="Kapusta"
+          width="89"
+          height="84"
+          class="cabbage-svg"
+        />
+        <img
+          src="./cabbage.svg"
+          alt="Kapusta"
+          width="89"
+          height="84"
+          class="cabbage-svg"
+        />
+        <img
+          src="./cabbage.svg"
+          alt="Kapusta"
+          width="89"
+          height="84"
+          class="cabbage-svg"
+        />
+        <img
+          src="./cabbage.svg"
+          alt="Kapusta"
+          width="89"
+          height="84"
+          class="cabbage-svg"
+        />
+        <img
+          src="./cabbage.svg"
+          alt="Kapusta"
+          width="89"
+          height="84"
+          class="cabbage-svg"
+        />
+        <img
+          src="./cabbage.svg"
+          alt="Kapusta"
+          width="89"
+          height="84"
+          class="cabbage-svg"
+        />
+        <img
+          src="./cabbage.svg"
+          alt="Kapusta"
+          width="89"
+          height="84"
+          class="cabbage-svg"
+        />
+      </div>
     </div>
   </body>
 </html>
