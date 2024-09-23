@@ -2,8 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const User = require("../../models/userModel");
 const { transactions } = require("../../models/transactionModel");
-
-async function login(req, res, next) {
+const login = async (req, res, next) => {
   try {
     const { nanoid } = await import("nanoid");
     const { email, password } = req.body;
@@ -42,31 +41,13 @@ async function login(req, res, next) {
       userData: {
         email: user.email,
         balance: user.balance,
+        id: user.id,
         transactions: user.transactions,
       },
     });
   } catch (error) {
     next(error);
   }
-}
+};
 
-async function logout(req, res, next) {
-  try {
-    const token = req.headers.authorization?.split(" ")[1];
-    if (!token) {
-      return res.status(401).json({ message: "Unauthorized" });
-    }
-    const user = await User.findOneAndUpdate(
-      { token },
-      { $set: { token: null, refreshToken: null } },
-      { new: true }
-    );
-    if (!user) {
-      return res.status(401).json({ message: "Unauthorized" });
-    }
-    res.status(204).send();
-  } catch (error) {
-    next(error);
-  }
-}
-module.exports = { login, logout };
+module.exports = { login };

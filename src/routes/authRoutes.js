@@ -1,10 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { signup } = require("../controller/authentication/registerController");
-const {
-  login,
-  logout,
-} = require("../controller/authentication/loginLogoutController");
+const { login } = require("../controller/authentication/loginController");
+const { logout } = require("../controller/authentication/logoutController");
 const { validateBody } = require("../middleware/validationMiddleware");
 const {
   registerSchema,

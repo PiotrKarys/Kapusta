@@ -8,7 +8,6 @@ const port = process.env.PORT || 3000;
 async function startServer() {
   try {
     await connectDB();
-    console.log("Connected to the database");
 
     const server = app.listen(port, () => {
       console.log(`Server is running on port ${port}`.blue);
