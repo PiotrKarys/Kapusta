@@ -4,7 +4,7 @@ const User = require("../../models/userModel");
 async function refreshToken(req, res, next) {
   try {
     const { nanoid } = await import("nanoid");
-    const sid = req.body;
+    const { sid } = req.body;
     const refreshToken = req.headers.authorization.split(" ")[1];
     if (!refreshToken || !sid) {
       return res
@@ -35,6 +35,10 @@ async function refreshToken(req, res, next) {
           { expiresIn: "7d" }
         );
         const newSid = nanoid();
+
+        user.refreshToken = newRefreshToken;
+        user.accessToken = newAccessToken;
+        await user.save();
 
         res.json({ newAccessToken, newRefreshToken, newSid });
       }
