@@ -25,7 +25,6 @@ async function refreshToken(req, res, next) {
         const payload = {
           id: user._id,
           email: user.email,
-          owner: user.owner,
         };
         const newAccessToken = jwt.sign(payload, process.env.JWT_SECRET, {
           expiresIn: "12h",

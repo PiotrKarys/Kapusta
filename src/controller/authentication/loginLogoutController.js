@@ -20,7 +20,6 @@ async function login(req, res, next) {
     const payload = {
       id: user._id,
       email: user.email,
-      owner: user.owner,
       sid,
     };
 
@@ -43,7 +42,6 @@ async function login(req, res, next) {
       userData: {
         email: user.email,
         balance: user.balance,
-        id: user.owner,
         transactions: user.transactions,
       },
     });
