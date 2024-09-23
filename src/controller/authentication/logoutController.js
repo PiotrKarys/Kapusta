@@ -8,7 +8,7 @@ const logout = async (req, res, next) => {
     }
     const user = await User.findOneAndUpdate(
       { token },
-      { $set: { token: null, refreshToken: null } },
+      { $set: { accessToken: null, refreshToken: null, sid: null } },
       { new: true }
     );
     if (!user) {

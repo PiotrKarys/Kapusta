@@ -19,11 +19,15 @@ const userSchema = new Schema({
     type: Number,
     default: 0,
   },
-  token: {
+  accessToken: {
     type: String,
     default: null,
   },
   refreshToken: {
+    type: String,
+    default: null,
+  },
+  sid: {
     type: String,
     default: null,
   },
