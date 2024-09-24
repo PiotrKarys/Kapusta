@@ -22,6 +22,9 @@ async function refreshToken(req, res, next) {
         if (!user) {
           return res.status(401).json({ message: "Invalid user" });
         }
+        if (user.sid !== sid) {
+          return res.status(401).json({ message: "Invalid user sid" });
+        }
         const payload = {
           id: user._id,
           email: user.email,
@@ -38,6 +41,7 @@ async function refreshToken(req, res, next) {
 
         user.refreshToken = newRefreshToken;
         user.accessToken = newAccessToken;
+        user.sid = newSid;
         await user.save();
 
         res.json({ newAccessToken, newRefreshToken, newSid });
