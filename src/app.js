@@ -8,6 +8,9 @@ const pageRoutes = require("./page");
 const path = require("path");
 const users = require("./routes/users");
 const app = express();
+const transactions = require("./routes/transactions");
+
+
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
 app.use(logger(formatsLogger));
@@ -19,7 +22,9 @@ app.use(passport.initialize());
 
 app.use("/", pageRoutes);
 app.use("/auth", authRoutes);
-app.use(errorHandler);
 app.use("/user", users);
+app.use("/transaction", transactions);
+app.use(errorHandler);
+
 
 module.exports = app;
