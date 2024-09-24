@@ -33,7 +33,7 @@ const userSchema = new Schema({
   },
   transactions: [
     {
-      type: Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId, 
       ref: "Transaction",
     },
   ],
