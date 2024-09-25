@@ -9,7 +9,7 @@ const connectDB = async () => {
       serverSelectionTimeoutMS: 5000,
       socketTimeoutMS: 45000,
     });
-    console.log("Database connection successful");
+    console.log("Database connection successful".cyan.underline);
   } catch (error) {
     console.error(`Error: ${error.message}`);
     process.exit(1);
