@@ -55,6 +55,12 @@ const transactionSchema = new Schema({
   },
 });
 
+transactionSchema.methods.toJSON = function () {
+  const obj = this.toObject();
+  obj.date = obj.date.toISOString().split("T")[0];
+  return obj;
+};
+
 const Transaction = mongoose.model("Transaction", transactionSchema);
 
 module.exports = { Transaction, incomeCategories, expenseCategories };

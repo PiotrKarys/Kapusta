@@ -1,13 +1,13 @@
 const { Transaction } = require("../../models/transactionModel");
 
-
-const getExpenses = async (req, res, next) => {
+const getIncomes = async (req, res, next) => {
   try {
     const userId = req.user._id;
 
-    const expenses = await Transaction.find({
+    
+    const incomes = await Transaction.find({
       user: userId,
-      type: "expense",
+      type: "income",
     });
 
     
@@ -31,17 +31,19 @@ const getExpenses = async (req, res, next) => {
       monthStats[month] = "N/A";
     });
 
-    expenses.forEach((expense) => {
-      const month = new Date(expense.date).getMonth();
+    
+    incomes.forEach((income) => {
+      const month = new Date(income.date).getMonth();
       const monthName = monthNames[month];
       if (monthStats[monthName] === "N/A") {
         monthStats[monthName] = 0;
       }
-      monthStats[monthName] -= expense.amount;
+      monthStats[monthName] += income.amount;
     });
 
+   
     res.status(200).json({
-      expenses,
+      incomes,
       monthStats,
     });
   } catch (error) {
@@ -49,4 +51,4 @@ const getExpenses = async (req, res, next) => {
   }
 };
 
-module.exports = getExpenses;
+module.exports = getIncomes;
