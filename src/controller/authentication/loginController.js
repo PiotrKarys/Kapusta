@@ -39,7 +39,7 @@ const login = async (req, res, next) => {
       accessToken,
       refreshToken,
       sid,
-      userData: {
+      user: {
         email: user.email,
         balance: user.balance,
         id: user.id,
