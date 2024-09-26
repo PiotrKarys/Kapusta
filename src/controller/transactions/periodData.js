@@ -2,21 +2,26 @@ const { Transaction } = require("../../models/transactionModel");
 
 const getTransactionsPeriodData = async (req, res, next) => {
   try {
-    const { date } = req.query;
+    const { date, type } = req.query;
     const userId = req.user._id;
 
-    if (!date || !/^\d{4}-\d{2}$/.test(date)) {
-      return res
-        .status(400)
-        .json({ message: "Invalid date format. Please use YYYY-MM format." });
+    if (!date || !/^\d{4}(-\d{2})?$/.test(date)) {
+      return res.status(400).json({
+        message: "Invalid date format. Please use YYYY-MM or YYYY format.",
+      });
     }
 
     const [year, month] = date.split("-");
-    const startDate = new Date(year, month - 1, 1);
-    const endDate = new Date(year, month, 0, 23, 59, 59);
+    const startDate = month
+      ? new Date(year, month - 1, 1)
+      : new Date(year, 0, 1);
+    const endDate = month
+      ? new Date(year, month, 0, 23, 59, 59)
+      : new Date(year, 11, 31, 23, 59, 59);
 
     const transactions = await Transaction.find({
       user: userId,
+      //mongo db wieksze lub rowne
       date: { $gte: startDate, $lte: endDate },
     });
 
