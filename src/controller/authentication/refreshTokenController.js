@@ -1,11 +1,20 @@
 const jwt = require("jsonwebtoken");
 const User = require("../../models/userModel");
+const BlacklistedToken = require("../../models/BlackListedTokenModel");
 
 async function refreshToken(req, res, next) {
   try {
     const { nanoid } = await import("nanoid");
     const { sid } = req.body;
     const refreshToken = req.headers.authorization.split(" ")[1];
+
+    const blacklistedToken = await BlacklistedToken.findOne({
+      token: refreshToken,
+    });
+    if (blacklistedToken) {
+      return res.status(401).json({ message: "Refresh token is blacklisted" });
+    }
+
     if (!refreshToken || !sid) {
       return res
         .status(400)

@@ -9,10 +9,10 @@ const path = require("path");
 const users = require("./routes/users");
 const app = express();
 const transactions = require("./routes/transactions");
-
+const cleanupBlacklist = require("./utils/cleanupBlacklist");
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
-
+cleanupBlacklist();
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
@@ -25,6 +25,5 @@ app.use("/auth", authRoutes);
 app.use("/user", users);
 app.use("/transaction", transactions);
 app.use(errorHandler);
-
 
 module.exports = app;
