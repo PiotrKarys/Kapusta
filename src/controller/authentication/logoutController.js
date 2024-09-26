@@ -1,22 +1,42 @@
 const User = require("../../models/userModel");
+const BlacklistedToken = require("../../models/BlackListedTokenModel");
+const jwt = require("jsonwebtoken");
 
 const logout = async (req, res, next) => {
   try {
-    const token = req.headers.authorization?.split(" ")[1];
-    if (!token) {
+    const accessToken = req.headers.authorization?.split(" ")[1];
+    const refreshToken = req.user.refreshToken;
+    const sid = req.user.sid;
+
+    if (!accessToken) {
       return res.status(401).json({ message: "Unauthorized" });
     }
-    const user = await User.findOneAndUpdate(
-      { token },
-      { $set: { accessToken: null, refreshToken: null, sid: null } },
-      { new: true }
+
+    const decodedAccess = jwt.verify(accessToken, process.env.JWT_SECRET);
+    const decodedRefresh = jwt.verify(
+      refreshToken,
+      process.env.REFRESH_JWT_SECRET
     );
-    if (!user) {
-      return res.status(401).json({ message: "Unauthorized" });
-    }
+
+    await BlacklistedToken.create({
+      token: accessToken,
+      expiresAt: new Date(decodedAccess.exp * 1000),
+    });
+    await BlacklistedToken.create({
+      token: refreshToken,
+      expiresAt: new Date(decodedRefresh.exp * 1000),
+    });
+
+    await User.findByIdAndUpdate(decodedAccess.id, {
+      accessToken: null,
+      refreshToken: null,
+      sid: null,
+    });
+
     res.status(204).send();
   } catch (error) {
     next(error);
   }
 };
+
 module.exports = { logout };
