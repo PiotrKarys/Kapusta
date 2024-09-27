@@ -7,9 +7,11 @@ const authRoutes = require("./routes/authRoutes");
 const pageRoutes = require("./page");
 const path = require("path");
 const users = require("./routes/users");
-const app = express();
 const transactions = require("./routes/transactions");
 const cleanupBlacklist = require("./utils/cleanupBlacklist");
+const { swaggerUi, swaggerDocs } = require("./swagger");
+
+const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 cleanupBlacklist();
@@ -19,6 +21,8 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "page")));
 app.use("/assets", express.static(path.join(__dirname, "../assets")));
 app.use(passport.initialize());
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use("/", pageRoutes);
 app.use("/auth", authRoutes);
