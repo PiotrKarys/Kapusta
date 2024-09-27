@@ -11,12 +11,12 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: " http://localhost:3001", // Zmień na odpowiedni port
-        // url: "https://kapusta-eta.vercel.app/", // Zmień na odpowiedni port
+        url: " http://localhost:3001", // lokalny
+        // url: "https://kapusta-eta.vercel.app/", // vercel
       },
     ],
   },
-  apis: ["./src/routes/*.js"], // Ścieżka do plików z definicjami tras
+  apis: ["./src/routes/*.js"],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
