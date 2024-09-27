@@ -1,23 +1,27 @@
 const { Transaction } = require("../../models/transactionModel");
+const { periodDataSchema } = require("../../utils/validationSchemas");
 
 const getTransactionsPeriodData = async (req, res, next) => {
   try {
-    const { date, type } = req.query;
-    const userId = req.user._id;
-
-    if (!date || !/^\d{4}(-\d{2})?$/.test(date)) {
-      return res.status(400).json({
-        message: "Invalid date format. Please use YYYY-MM or YYYY format.",
-      });
+    const { error } = periodDataSchema.validate(req.query);
+    if (error) {
+      return res.status(400).json({ message: "Invalid date format" });
     }
 
+    const { date } = req.query;
+    const userId = req.user._id;
+
     const [year, month] = date.split("-");
-    const startDate = month
-      ? new Date(year, month - 1, 1)
-      : new Date(year, 0, 1);
-    const endDate = month
-      ? new Date(year, month, 0, 23, 59, 59)
-      : new Date(year, 11, 31, 23, 59, 59);
+    let startDate, endDate;
+
+    if (month) {
+      startDate = new Date(year, month - 1, 1);
+      endDate = new Date(year, month, 0, 23, 59, 59);
+    } else {
+      startDate = new Date(year, 0, 1);
+      endDate = new Date(year, 11, 31, 23, 59, 59);
+    }
+
 
     const transactions = await Transaction.find({
       user: userId,

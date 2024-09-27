@@ -15,8 +15,11 @@ const {
 const authMiddleware = require("../middleware/authMiddleware");
 
 router.post("/register", validateBody(registerSchema), signup);
+
 router.post("/login", validateBody(loginSchema), login);
+
 router.post("/logout", authMiddleware, logout);
+
 router.post("/refresh", validateBody(refreshTokenSchema), refreshToken);
 
 module.exports = router;

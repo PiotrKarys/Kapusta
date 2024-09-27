@@ -7,9 +7,10 @@ const authRoutes = require("./routes/authRoutes");
 const pageRoutes = require("./page");
 const path = require("path");
 const users = require("./routes/users");
-const app = express();
 const transactions = require("./routes/transactions");
 const cleanupBlacklist = require("./utils/cleanupBlacklist");
+
+const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 cleanupBlacklist();
