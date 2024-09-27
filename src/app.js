@@ -10,10 +10,10 @@ const users = require("./routes/users");
 const transactions = require("./routes/transactions");
 const cleanupBlacklist = require("./utils/cleanupBlacklist");
 const swaggerUi = require("swagger-ui-express");
-const swaggerDefinition = require("./swaggerDef");
+const swaggerDefinition = require("./swagger/swagger.json");
 
 const app = express();
-
+const swaggerFilePath = path.join(__dirname, "swagger", "swagger.json");
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 cleanupBlacklist();
