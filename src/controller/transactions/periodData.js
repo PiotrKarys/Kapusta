@@ -22,8 +22,10 @@ const getTransactionsPeriodData = async (req, res, next) => {
       endDate = new Date(year, 11, 31, 23, 59, 59);
     }
 
+
     const transactions = await Transaction.find({
       user: userId,
+      //mongo db wieksze lub rowne
       date: { $gte: startDate, $lte: endDate },
     });
 
