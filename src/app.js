@@ -9,9 +9,12 @@ const path = require("path");
 const users = require("./routes/users");
 const transactions = require("./routes/transactions");
 const cleanupBlacklist = require("./utils/cleanupBlacklist");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDefinition = require("./swaggerDef");
 
 const app = express();
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 cleanupBlacklist();
 app.use(logger(formatsLogger));
