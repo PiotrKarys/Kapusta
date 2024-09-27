@@ -26,6 +26,10 @@ const logout = async (req, res, next) => {
       token: refreshToken,
       expiresAt: new Date(decodedRefresh.exp * 1000),
     });
+    await BlacklistedToken.create({
+      token: sid,
+      expiresAt: new Date(decodedAccess.exp * 1000),
+    });
 
     await User.findByIdAndUpdate(decodedAccess.id, {
       accessToken: null,

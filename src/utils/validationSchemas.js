@@ -20,14 +20,28 @@ const loginSchema = Joi.object({
     "any.required": "Password is required",
   }),
 });
+
 const refreshTokenSchema = Joi.object({
   sid: Joi.string().required().messages({
     "any.required": "sid is required",
   }),
 });
 
+const periodDataSchema = Joi.object({
+  date: Joi.string()
+    .pattern(/^(?:\d{4}|\d{4}-\d{2})$/)
+    .required()
+    .messages({
+      "string.base": `"date" should be a string`,
+      "string.empty": `"date" cannot be empty`,
+      "any.required": `"date" is required`,
+      "string.pattern.base": `"date" must be in the format YYYY or YYYY-MM`,
+    }),
+});
+
 module.exports = {
   registerSchema,
   loginSchema,
   refreshTokenSchema,
+  periodDataSchema,
 };
