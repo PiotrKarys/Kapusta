@@ -38,6 +38,10 @@ app.use(
   swaggerUi.setup(swaggerDocument, {
     explorer: true,
     customCssUrl: "/api-docs/swagger-ui.css",
+    customJs: [
+      "/api-docs/swagger-ui-bundle.js",
+      "/api-docs/swagger-ui-standalone-preset.js",
+    ],
   })
 );
 
@@ -57,5 +61,18 @@ app.use("/auth", authRoutes);
 app.use("/user", users);
 app.use("/transaction", transactions);
 app.use(errorHandler);
+
+app.get(
+  "/api-docs",
+  swaggerUi.setup(swaggerDocument, {
+    explorer: true,
+    customCssUrl:
+      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css",
+    customJs: [
+      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui-bundle.js",
+      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui-standalone-preset.js",
+    ],
+  })
+);
 
 module.exports = app;

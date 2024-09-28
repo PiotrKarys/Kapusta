@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node ./src/server.js",
+    "start": "node src/server.js",
     "start:dev": "cross-env NODE_ENV=development nodemon ./src/server.js",
     "test": "jest",
-    "build": "echo 'Building...' && cp -r src/swagger dist/"
+    "build": "mkdir -p dist/swagger && cp src/swagger/*.yaml dist/swagger/ && cp -r node_modules/swagger-ui-dist dist/"
   },
   "repository": {
     "type": "git",
