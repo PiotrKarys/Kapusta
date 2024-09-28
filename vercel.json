@@ -19,33 +19,19 @@
     }
   ],
   "routes": [
+    { "src": "/api-docs/(.*)", "dest": "/src/server.js" },
     {
-      "src": "/api-docs",
-      "dest": "/src/server.js"
+      "src": "/swagger-ui.css",
+      "dest": "/node_modules/swagger-ui-dist/swagger-ui.css"
     },
     {
-      "src": "/swagger.json",
-      "dest": "/src/server.js"
+      "src": "/swagger-ui-bundle.js",
+      "dest": "/node_modules/swagger-ui-dist/swagger-ui-bundle.js"
     },
     {
-      "src": "/",
-      "dest": "/src/server.js"
+      "src": "/swagger-ui-standalone-preset.js",
+      "dest": "/node_modules/swagger-ui-dist/swagger-ui-standalone-preset.js"
     },
-    {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/static/(.*)",
-      "dest": "/src/page/$1"
-    },
-    {
-      "src": "/cabbage.svg",
-      "dest": "/src/page/cabbage.svg"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/src/server.js"
-    }
+    { "src": "/(.*)", "dest": "/src/server.js" }
   ]
 }
