@@ -11,20 +11,6 @@ const transactions = require("./routes/transactions");
 const cleanupBlacklist = require("./utils/cleanupBlacklist");
 const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
-const fs = require("fs");
-
-const mainSwagger = YAML.parse(
-  fs.readFileSync(path.join(__dirname, "swagger", "swagger.yaml"), "utf8")
-);
-
-const schemas = YAML.parse(
-  fs.readFileSync(
-    path.join(__dirname, "swagger", "swaggerSchemas.yaml"),
-    "utf8"
-  )
-);
-
-mainSwagger.components = { ...mainSwagger.components, ...schemas.components };
 
 const app = express();
 
@@ -32,20 +18,7 @@ const swaggerDocument = YAML.load(
   path.join(__dirname, "swagger", "swagger.yaml")
 );
 
-app.use("/api-docs", swaggerUi.serve);
-app.get(
-  "/api-docs",
-  swaggerUi.setup(swaggerDocument, {
-    explorer: true,
-    customCssUrl:
-      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css",
-    customJs: [
-      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui-bundle.js",
-      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui-standalone-preset.js",
-    ],
-    customSiteTitle: "API Documentation",
-  })
-);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
