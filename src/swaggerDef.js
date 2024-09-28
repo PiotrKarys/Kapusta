@@ -7,11 +7,11 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: "http://loclahost:3001",
+      url: "http://localhost:3001",
       url: "https://kapusta-eta.vercel.app",
     },
   ],
-  pahts: {},
+  paths: {},
 };
 
 module.exports = swaggerDefinition;
