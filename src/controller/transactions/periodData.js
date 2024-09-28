@@ -22,7 +22,6 @@ const getTransactionsPeriodData = async (req, res, next) => {
       endDate = new Date(year, 11, 31, 23, 59, 59);
     }
 
-
     const transactions = await Transaction.find({
       user: userId,
       //mongo db wieksze lub rowne
@@ -43,22 +42,24 @@ const getTransactionsPeriodData = async (req, res, next) => {
     transactions.forEach(t => {
       if (t.type === "income") {
         result.incomes.total += t.amount;
-        if (!result.incomes.incomesData[t.category]) {
-          result.incomes.incomesData[t.category] = { total: 0 };
-        }
-        result.incomes.incomesData[t.category].total += t.amount;
-        result.incomes.incomesData[t.category][t.description] =
-          (result.incomes.incomesData[t.category][t.description] || 0) +
-          t.amount;
+        t.category.forEach(cat => {
+          if (!result.incomes.incomesData[cat]) {
+            result.incomes.incomesData[cat] = { total: 0 };
+          }
+          result.incomes.incomesData[cat].total += t.amount;
+          result.incomes.incomesData[cat][t.description] =
+            (result.incomes.incomesData[cat][t.description] || 0) + t.amount;
+        });
       } else {
         result.expenses.total += t.amount;
-        if (!result.expenses.expensesData[t.category]) {
-          result.expenses.expensesData[t.category] = { total: 0 };
-        }
-        result.expenses.expensesData[t.category].total += t.amount;
-        result.expenses.expensesData[t.category][t.description] =
-          (result.expenses.expensesData[t.category][t.description] || 0) +
-          t.amount;
+        t.category.forEach(cat => {
+          if (!result.expenses.expensesData[cat]) {
+            result.expenses.expensesData[cat] = { total: 0 };
+          }
+          result.expenses.expensesData[cat].total += t.amount;
+          result.expenses.expensesData[cat][t.description] =
+            (result.expenses.expensesData[cat][t.description] || 0) + t.amount;
+        });
       }
     });
 

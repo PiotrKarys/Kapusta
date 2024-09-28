@@ -1,5 +1,8 @@
-const { Transaction, expenseCategories } = require("../../models/transactionModel");
-const User = require("../../models/userModel")
+const {
+  Transaction,
+  expenseCategories,
+} = require("../../models/transactionModel");
+const User = require("../../models/userModel");
 
 const addExpense = async (req, res, next) => {
   try {
@@ -10,33 +13,31 @@ const addExpense = async (req, res, next) => {
       return res.status(400).json({ message: "Invalid request body" });
     }
 
-    if (!expenseCategories.includes(category)) {
+    const categoryArray = Array.isArray(category) ? category : [category];
+
+    if (!categoryArray.every(cat => expenseCategories.includes(cat))) {
       return res
         .status(400)
-        .json({ message: `Invalid category, try: ${expenseCategories} ` });
+        .json({ message: `Invalid category, try: ${expenseCategories}` });
     }
 
     const newTransaction = new Transaction({
       description,
       amount,
       date,
-      category,
+      category: categoryArray,
       type: "expense",
       user: userId,
     });
-      
-      await newTransaction.save();
 
-       const user = await User.findById(userId);
-       user.transactions.push(newTransaction._id); 
+    await newTransaction.save();
 
-       
-       user.balance -= amount; 
+    const user = await User.findById(userId);
+    user.transactions.push(newTransaction._id);
 
-       
-       await user.save();
+    user.balance -= amount;
 
-    
+    await user.save();
 
     const expenses = await Transaction.aggregate([
       { $match: { user: userId, type: "expense" } },
