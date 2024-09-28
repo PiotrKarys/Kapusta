@@ -6,7 +6,8 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./src/server.js",
     "start:dev": "cross-env NODE_ENV=development nodemon ./src/server.js",
-    "test": "jest"
+    "test": "jest",
+    "build": "echo 'Building...' && cp -r src/swagger dist/"
   },
   "repository": {
     "type": "git",

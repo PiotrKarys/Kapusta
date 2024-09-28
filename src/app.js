@@ -29,7 +29,7 @@ mainSwagger.components = { ...mainSwagger.components, ...schemas.components };
 const app = express();
 
 const swaggerDocument = YAML.load(
-  path.join(__dirname, "./swagger/swagger.yaml")
+  path.join(__dirname, "swagger", "swagger.yaml")
 );
 
 app.use(
