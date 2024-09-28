@@ -6,6 +6,10 @@
   ],
   "routes": [
     {
+      "src": "/api-docs/(swagger-ui-bundle\\.js|swagger-ui-standalone-preset\\.js|swagger-ui\\.css)",
+      "dest": "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/$1"
+    },
+    {
       "src": "/api-docs/swagger-ui.css",
       "dest": "/node_modules/swagger-ui-dist/swagger-ui.css"
     },
