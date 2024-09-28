@@ -27,11 +27,19 @@ const schemas = YAML.parse(
 mainSwagger.components = { ...mainSwagger.components, ...schemas.components };
 
 const app = express();
+
 const swaggerDocument = YAML.load(
   path.join(__dirname, "./swagger/swagger.yaml")
 );
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, {
+    explorer: true,
+    customCssUrl: "/api-docs/swagger-ui.css",
+  })
+);
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
