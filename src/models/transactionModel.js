@@ -31,14 +31,14 @@ const transactionSchema = new Schema({
     required: true,
   },
   category: {
-    type: String,
+    type: [String],
     required: true,
     validate: {
       validator: function (v) {
         if (this.type === "income") {
-          return incomeCategories.includes(v);
+          return v.every(cat => incomeCategories.includes(cat));
         } else {
-          return expenseCategories.includes(v);
+          return v.every(cat => expenseCategories.includes(cat));
         }
       },
     },

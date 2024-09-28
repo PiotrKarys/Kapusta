@@ -1,0 +1,196 @@
+components:
+  schemas:
+    RegisterRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 6
+      required:
+        - email
+        - password
+
+    RegisterResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        message:
+          type: string
+          example: User created
+        user:
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+        - email
+        - password
+
+    LoginResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        sid:
+          type: string
+        user:
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+            balance:
+              type: number
+            id:
+              type: string
+            transactions:
+              type: array
+              items:
+                $ref: "#/components/schemas/Transaction"
+
+    RefreshTokenRequest:
+      type: object
+      properties:
+        refreshToken:
+          type: string
+      required:
+        - refreshToken
+
+    RefreshTokenResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        sid:
+          type: string
+
+    UpdateBalanceRequest:
+      type: object
+      properties:
+        balance:
+          type: number
+      required:
+        - balance
+
+    UpdateBalanceResponse:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        balance:
+          type: number
+
+    Transaction:
+      type: object
+      properties:
+        _id:
+          type: string
+        description:
+          type: string
+        amount:
+          type: number
+        date:
+          type: string
+          format: date
+        category:
+          type: array
+          items:
+            type: string
+        type:
+          type: string
+          enum: [income, expense]
+
+    AddTransactionRequest:
+      type: object
+      properties:
+        description:
+          type: string
+        amount:
+          type: number
+        date:
+          type: string
+          format: date
+        category:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+          enum:
+            - Products
+            - Alcohol
+            - Entertainment
+            - Health
+            - Transport
+            - Housing
+            - Technique
+            - Communal, communication
+            - Sports, hobbies
+            - Education
+            - Other
+            - Salary
+            - Add. income
+        required:
+          - description
+          - amount
+          - date
+          - category
+
+    AddTransactionResponse:
+      type: object
+      properties:
+        newBalance:
+          type: number
+        transaction:
+          $ref: "#/components/schemas/Transaction"
+
+    PeriodDataResponse:
+      type: object
+      properties:
+        incomes:
+          type: object
+          properties:
+            total:
+              type: number
+            incomesData:
+              type: object
+        expenses:
+          type: object
+          properties:
+            total:
+              type: number
+            expensesData:
+              type: object
+      example:
+        incomes:
+          total: 5000
+          incomesData:
+            Salary:
+              total: 5000
+              Wypłata: 5000
+        expenses:
+          total: 122
+          expensesData:
+            Food:
+              total: 122
+              "Zakupy spożywcze": 122

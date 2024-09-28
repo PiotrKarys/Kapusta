@@ -13,19 +13,19 @@ const addIncome = async (req, res, next) => {
       return res.status(400).json({ message: "Invalid request body" });
     }
 
-    if (!incomeCategories.includes(category)) {
+    const categoryArray = Array.isArray(category) ? category : [category];
+
+    if (!categoryArray.every(cat => incomeCategories.includes(cat))) {
       return res
         .status(400)
-        .json({ message: `Invalid category, try: ${incomeCategories} ` });
-      }
-      
-      
+        .json({ message: `Invalid category, try: ${incomeCategories}` });
+    }
 
     const newTransaction = new Transaction({
       description,
       amount,
       date,
-      category,
+      category: categoryArray,
       type: "income",
       user: userId,
     });

@@ -10,13 +10,29 @@ const users = require("./routes/users");
 const transactions = require("./routes/transactions");
 const cleanupBlacklist = require("./utils/cleanupBlacklist");
 const swaggerUi = require("swagger-ui-express");
-const swaggerDefinition = require("./swagger/swagger.json");
+const YAML = require("yamljs");
+const fs = require("fs");
+
+// Wczytaj główny plik swagger.yaml
+const mainSwagger = YAML.parse(
+  fs.readFileSync("./src/swagger/swagger.yaml", "utf8")
+);
+
+// Wczytaj plik ze schematami
+const schemas = YAML.parse(
+  fs.readFileSync("./src/swagger/swaggerSchemas.yaml", "utf8")
+);
+
+// Połącz oba obiekty
+mainSwagger.components = { ...mainSwagger.components, ...schemas.components };
 
 const app = express();
-const swaggerFilePath = path.join(__dirname, "swagger", "swagger.json");
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(mainSwagger));
+
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
+
 cleanupBlacklist();
+
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());

@@ -2,12 +2,13 @@ const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const User = require("../../models/userModel");
 const { transactions } = require("../../models/transactionModel");
+
 const login = async (req, res, next) => {
   try {
     const { nanoid } = await import("nanoid");
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).populate("transactions");
     if (!user) {
       return res.status(403).json({ message: "Invalid email or password" });
     }
@@ -33,9 +34,16 @@ const login = async (req, res, next) => {
     user.sid = sid;
     await user.save();
 
+    const filteredTransactions = user.transactions.map(transaction => {
+      return {
+        _id: transaction._id,
+        description: transaction.description,
+        amount: transaction.amount,
+        date: transaction.date,
+        category: transaction.category,
+      };
+    });
     res.status(200).json({
-      status: "success",
-      message: "Successful operation",
       accessToken,
       refreshToken,
       sid,
@@ -43,7 +51,7 @@ const login = async (req, res, next) => {
         email: user.email,
         balance: user.balance,
         id: user.id,
-        transactions: user.transactions,
+        transactions: filteredTransactions,
       },
     });
   } catch (error) {
