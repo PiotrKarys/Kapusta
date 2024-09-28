@@ -41,3 +41,23 @@ node_modules/js-yaml/lib/js-yaml/type/str.js
 node_modules/js-yaml/lib/js-yaml/type/timestamp.js
 node_modules/js-yaml/package.json
 node_modules/js-yaml/README.md
+
+# Dependencje
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# Środowisko
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Pliki budowania
+/build
+/dist
+
+# Inne
+.DS_Store
+Thumbs.db

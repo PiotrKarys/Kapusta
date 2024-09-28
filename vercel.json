@@ -12,6 +12,10 @@
     {
       "src": "assets/**",
       "use": "@vercel/static"
+    },
+    {
+      "src": "src/swagger/*.yaml",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
