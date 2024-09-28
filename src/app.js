@@ -13,17 +13,17 @@ const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
 const fs = require("fs");
 
-// Wczytaj główny plik swagger.yaml
 const mainSwagger = YAML.parse(
-  fs.readFileSync("./src/swagger/swagger.yaml", "utf8")
+  fs.readFileSync(path.join(__dirname, "swagger", "swagger.yaml"), "utf8")
 );
 
-// Wczytaj plik ze schematami
 const schemas = YAML.parse(
-  fs.readFileSync("./src/swagger/swaggerSchemas.yaml", "utf8")
+  fs.readFileSync(
+    path.join(__dirname, "swagger", "swaggerSchemas.yaml"),
+    "utf8"
+  )
 );
 
-// Połącz oba obiekty
 mainSwagger.components = { ...mainSwagger.components, ...schemas.components };
 
 const app = express();
