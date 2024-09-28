@@ -20,6 +20,14 @@
   ],
   "routes": [
     {
+      "src": "/api-docs",
+      "dest": "/src/server.js"
+    },
+    {
+      "src": "/swagger.json",
+      "dest": "/src/server.js"
+    },
+    {
       "src": "/",
       "dest": "/src/server.js"
     },
