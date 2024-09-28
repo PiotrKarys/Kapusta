@@ -25,7 +25,14 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 cleanupBlacklist();
 
 app.use(logger(formatsLogger));
-app.use(cors());
+// app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+// app.use(cors({ origin: "https://localhost:3000" }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "page")));
 app.use("/assets", express.static(path.join(__dirname, "../assets")));
