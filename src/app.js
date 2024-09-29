@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
@@ -11,6 +12,7 @@ const transactions = require("./routes/transactions");
 const cleanupBlacklist = require("./utils/cleanupBlacklist");
 const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
+const helmet = require("helmet");
 
 const app = express();
 
@@ -38,14 +40,21 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 cleanupBlacklist();
 
 app.use(logger(formatsLogger));
-// app.use(cors());
+app.use(helmet());
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(",");
 app.use(
   cors({
-    origin: "https://kapustaapp.vercel.app/",
+    origin: function (origin, callback) {
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
 );
-// app.use(cors({ origin: "https://localhost:3000" }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "page")));
 app.use("/assets", express.static(path.join(__dirname, "../assets")));
