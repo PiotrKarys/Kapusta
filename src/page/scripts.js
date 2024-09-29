@@ -35,6 +35,11 @@ function goToApiDocs() {
   window.location.href = "/api-docs";
 }
 
+function goToFrontend() {
+  window.location.href =
+    "https://go-it-group-project-react-node-gr4-front.vercel.app/";
+}
+
 window.onload = () => {
   addRandomCabbages();
   setInterval(rotateAllCabbages, 3000);
