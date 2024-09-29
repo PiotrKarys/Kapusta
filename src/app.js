@@ -45,8 +45,6 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS.split(",");
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Pozwól na żądania bez origin (np. narzędzia do testowania API)
-      if (!origin) return callback(null, true);
       if (allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
