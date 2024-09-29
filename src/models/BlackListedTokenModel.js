@@ -10,6 +10,11 @@ const blacklistedTokenSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  dateAdded: {
+    type: Date,
+    default: Date.now,
+    required: true,
+  },
 });
 
 const BlacklistedToken = mongoose.model(
