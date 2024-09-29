@@ -7,7 +7,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/scripts.js", (req, res) => {
-  res.sendFile(path.join(__dirname, "cabbage.js"));
+  res.sendFile(path.join(__dirname, "scripts.js"));
 });
 
 router.get("/styles.css", (req, res) => {
