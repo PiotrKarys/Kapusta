@@ -36,8 +36,7 @@ function goToApiDocs() {
 }
 
 function goToFrontend() {
-  window.location.href =
-    "https://go-it-group-project-react-node-gr4-front.vercel.app/";
+  window.location.href = "https://kapustaapp.vercel.app/";
 }
 
 window.onload = () => {

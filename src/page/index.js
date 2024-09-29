@@ -14,8 +14,4 @@ router.get("/styles.css", (req, res) => {
   res.sendFile(path.join(__dirname, "styles.css"));
 });
 
-router.get("/api/status", (req, res) => {
-  res.json({ message: "Serwer Kapu$ta działa poprawnie" });
-});
-
 module.exports = router;

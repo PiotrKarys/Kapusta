@@ -7,4 +7,5 @@ const authMiddleware = require("../middleware/authMiddleware");
 router.patch("/balance", authMiddleware, balance);
 
 router.get("/", authMiddleware, currentUser);
+
 module.exports = router;

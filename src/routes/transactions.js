@@ -27,4 +27,5 @@ router.get("/income-categories", authMiddleware, getIncomeCategories);
 router.get("/expense-categories", authMiddleware, getExpenseCategories);
 
 router.get("/period-data", authMiddleware, getTransactionsPeriodData);
+
 module.exports = router;

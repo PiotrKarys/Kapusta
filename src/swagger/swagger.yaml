@@ -4,7 +4,7 @@ info:
   version: 1.0.3
   description: API for personal finance management.
 servers:
-  - url: https://kapusta-eta.vercel.app
+  - url: https://kapusta-serv.vercel.app
   - url: http://localhost:3001
 
 paths:

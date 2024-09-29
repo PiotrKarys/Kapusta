@@ -12,6 +12,7 @@ const {
 const {
   refreshToken,
 } = require("../controller/authentication/refreshTokenController");
+
 const authMiddleware = require("../middleware/authMiddleware");
 
 router.post("/register", validateBody(registerSchema), signup);
