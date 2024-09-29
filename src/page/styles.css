@@ -52,10 +52,10 @@ h1 {
     color: #4caf50;
 }
 
-.api-docs-button {
+.api-docs-button,
+.frontend-button {
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #4caf50;
     color: white;
     border: none;
     border-radius: 5px;
@@ -65,8 +65,21 @@ h1 {
     transition: background-color 0.3s;
 }
 
+.api-docs-button {
+    background-color: #4caf50;
+    margin-right: 10px;
+}
+
+.frontend-button {
+    background-color: #2196F3;
+}
+
 .api-docs-button:hover {
     background-color: #45a049;
+}
+
+.frontend-button:hover {
+    background-color: #1976D2;
 }
 
 .background {
