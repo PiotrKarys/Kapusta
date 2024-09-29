@@ -5,169 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kapu$ta</title>
     <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon" />
-    <style>
-      body {
-        font-family: "Comic Sans MS", "Comic Sans", cursive;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
-      .container {
-        text-align: center;
-        padding: 2rem;
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s;
-      }
-      .container:hover {
-        transform: translateY(-5px);
-      }
-      h1 {
-        color: #4caf50;
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-      }
-      p {
-        color: #333;
-        font-size: 1.2rem;
-        margin: 0.5rem 0;
-      }
-      #counter {
-        font-weight: bold;
-        font-size: 1.5rem;
-        color: #4caf50;
-      }
-      @media (max-width: 600px) {
-        h1 {
-          font-size: 2rem;
-        }
-        p {
-          font-size: 1rem;
-        }
-        .cabbage-svg {
-          display: flex;
-          justify-content: center;
-          margin-top: 20px;
-        }
-
-        .background {
-          position: relative;
-          width: 100vw;
-          height: 100vh;
-          overflow: hidden;
-        }
-        .cabbage {
-          position: absolute;
-          width: 50px;
-          height: auto;
-          opacity: 0.8;
-        }
-        .cabbage:nth-child(1) {
-          top: 10%;
-          left: 20%;
-          transform: rotate(15deg);
-        }
-        .cabbage:nth-child(2) {
-          top: 30%;
-          left: 50%;
-          transform: rotate(-10deg);
-        }
-        .cabbage:nth-child(3) {
-          top: 60%;
-          left: 70%;
-          transform: rotate(25deg);
-        }
-        .cabbage:nth-child(4) {
-          top: 80%;
-          left: 30%;
-          transform: rotate(-20deg);
-        }
-        .cabbage:nth-child(5) {
-          top: 40%;
-          left: 80%;
-          transform: rotate(5deg);
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="container">
-      <h1 id="serverStatus">Ładowanie statusu serwera...</h1>
-      <p>Witaj! Wszystko funkcjonuje tak, jak powinno.</p>
-      <div class="background">
-        <img
-          src="./cabbage.svg"
-          alt="Kapusta"
-          width="89"
-          height="84"
-          class="cabbage-svg"
-        />
-        <img
-          src="./cabbage.svg"
-          alt="Kapusta"
-          width="89"
-          height="84"
-          class="cabbage-svg"
-        />
-        <img
-          src="./cabbage.svg"
-          alt="Kapusta"
-          width="89"
-          height="84"
-          class="cabbage-svg"
-        />
-        <img
-          src="./cabbage.svg"
-          alt="Kapusta"
-          width="89"
-          height="84"
-          class="cabbage-svg"
-        />
-        <img
-          src="./cabbage.svg"
-          alt="Kapusta"
-          width="89"
-          height="84"
-          class="cabbage-svg"
-        />
-        <img
-          src="./cabbage.svg"
-          alt="Kapusta"
-          width="89"
-          height="84"
-          class="cabbage-svg"
-        />
-        <img
-          src="./cabbage.svg"
-          alt="Kapusta"
-          width="89"
-          height="84"
-          class="cabbage-svg"
-        />
-        <img
-          src="./cabbage.svg"
-          alt="Kapusta"
-          width="89"
-          height="84"
-          class="cabbage-svg"
-        />
+      <div id="cabbageContainer"></div>
+      <div class="content">
+        <h1>Witaj w Kapu$ta!</h1>
+        <p>Aplikacja do zarządzania finansami osobistymi.</p>
+        <button onclick="goToApiDocs()" class="api-docs-button">
+          Przejdź do dokumentacji API
+        </button>
       </div>
     </div>
-    <script>
-      fetch('/api/status')
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById('serverStatus').textContent = data.message;
-        })
-        .catch(error => {
-          console.error('Błąd:', error);
-          document.getElementById('serverStatus').textContent = 'Nie udało się pobrać statusu serwera';
-        });
-    </script>
+    <script src="scripts.js"></script>
   </body>
 </html>
