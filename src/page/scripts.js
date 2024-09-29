@@ -1,0 +1,58 @@
+function addRandomCabbages() {
+  const container = document.getElementById("cabbageContainer");
+  const numberOfCabbages = 45;
+  const containerRect = container.getBoundingClientRect();
+
+  for (let i = 0; i < numberOfCabbages; i++) {
+    const cabbage = document.createElement("img");
+    cabbage.src = "/assets/icons/Vector.svg";
+    cabbage.alt = "Kapusta";
+    cabbage.className = "cabbage";
+
+    const maxWidth = containerRect.width - 50;
+    const maxHeight = containerRect.height - 50;
+
+    cabbage.style.left = `${Math.random() * maxWidth}px`;
+    cabbage.style.top = `${Math.random() * maxHeight}px`;
+
+    rotateCabbage(cabbage);
+
+    container.appendChild(cabbage);
+  }
+}
+
+function rotateCabbage(cabbage) {
+  const rotation = Math.random() * 360;
+  cabbage.style.transform = `rotate(${rotation}deg)`;
+}
+
+function rotateAllCabbages() {
+  const cabbages = document.querySelectorAll(".cabbage");
+  cabbages.forEach(rotateCabbage);
+}
+
+function goToApiDocs() {
+  window.location.href = "/api-docs";
+}
+
+window.onload = () => {
+  addRandomCabbages();
+  setInterval(rotateAllCabbages, 3000);
+
+  fetch("/api/status")
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("serverStatus").textContent = data.message;
+    })
+    .catch(error => {
+      console.error("Błąd:", error);
+      document.getElementById("serverStatus").textContent =
+        "Nie udało się pobrać statusu serwera";
+    });
+};
+
+window.addEventListener("resize", () => {
+  const container = document.getElementById("cabbageContainer");
+  container.innerHTML = "";
+  addRandomCabbages();
+});
