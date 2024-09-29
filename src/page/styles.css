@@ -52,7 +52,18 @@ h1 {
     color: #4caf50;
 }
 
-.api-docs-button,
+.api-docs-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
 .frontend-button {
     margin-top: 20px;
     padding: 10px 20px;
@@ -89,6 +100,5 @@ h1 {
     width: 100%;
     height: 100%;
     z-index: -1;
-    /* Zmień na -1, aby tło było pod wszystkim */
     pointer-events: none;
 }
