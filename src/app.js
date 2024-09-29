@@ -11,6 +11,7 @@ const transactions = require("./routes/transactions");
 const cleanupBlacklist = require("./utils/cleanupBlacklist");
 const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
+const helmet = require("helmet");
 
 const app = express();
 
@@ -38,14 +39,18 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 cleanupBlacklist();
 
 app.use(logger(formatsLogger));
-// app.use(cors());
+app.use(helmet());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: [
+      "http://localhost:3000",
+      "https://kapustaapp.vercel.app",
+      "https://kapusta-serv.vercel.app",
+    ],
     credentials: true,
   })
 );
-// app.use(cors({ origin: "https://localhost:3000" }));
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "page")));
 app.use("/assets", express.static(path.join(__dirname, "../assets")));

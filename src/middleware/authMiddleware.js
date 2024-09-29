@@ -2,7 +2,7 @@ const passport = require("passport");
 const BlacklistedToken = require("../models/BlackListedTokenModel");
 
 const authMiddleware = async (req, res, next) => {
-  passport.authenticate("jwt", { session: false }, async (err, user, info) => {
+  passport.authenticate("jwt", { session: false }, async (err, user) => {
     if (err || !user) {
       return res.status(401).json({ message: "Unauthorized" });
     }
