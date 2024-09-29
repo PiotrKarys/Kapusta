@@ -38,17 +38,6 @@ function goToApiDocs() {
 window.onload = () => {
   addRandomCabbages();
   setInterval(rotateAllCabbages, 3000);
-
-  fetch("/api/status")
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById("serverStatus").textContent = data.message;
-    })
-    .catch(error => {
-      console.error("Błąd:", error);
-      document.getElementById("serverStatus").textContent =
-        "Nie udało się pobrać statusu serwera";
-    });
 };
 
 window.addEventListener("resize", () => {
