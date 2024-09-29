@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
@@ -40,17 +41,22 @@ cleanupBlacklist();
 
 app.use(logger(formatsLogger));
 app.use(helmet());
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(",");
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://kapustaapp.vercel.app",
-      "https://kapusta-serv.vercel.app",
-    ],
+    origin: function (origin, callback) {
+      // Pozwól na żądania bez origin (np. narzędzia do testowania API)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
 );
-
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "page")));
 app.use("/assets", express.static(path.join(__dirname, "../assets")));
