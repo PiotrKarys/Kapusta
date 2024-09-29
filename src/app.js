@@ -41,7 +41,7 @@ app.use(logger(formatsLogger));
 // app.use(cors());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://kapustaapp.vercel.app/",
     credentials: true,
   })
 );
