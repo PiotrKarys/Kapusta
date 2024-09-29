@@ -9,6 +9,13 @@ async function startServer() {
   try {
     await connectDB();
 
+    app.use((req, res, next) => {
+      res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+      res.setHeader("Cross-Origin-Resource-Policy", "same-origin");
+      res.setHeader("Referrer-Policy", "no-referrer-when-downgrade");
+      next();
+    });
+
     const server = app.listen(port, () => {
       console.log(`Server is running on port ${port}`.blue);
       console.log(`Access it at: http://localhost:${port}`.yellow);
