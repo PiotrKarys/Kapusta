@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kapu$ta server</title>
+    <title>Kapu$ta</title>
     <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon" />
     <style>
       body {
@@ -97,7 +97,7 @@
   </head>
   <body>
     <div class="container">
-      <h1>Serwer Kapu$ta działa poprawnie</h1>
+      <h1 id="serverStatus">Ładowanie statusu serwera...</h1>
       <p>Witaj! Wszystko funkcjonuje tak, jak powinno.</p>
       <div class="background">
         <img
@@ -158,5 +158,16 @@
         />
       </div>
     </div>
+    <script>
+      fetch('/api/status')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('serverStatus').textContent = data.message;
+        })
+        .catch(error => {
+          console.error('Błąd:', error);
+          document.getElementById('serverStatus').textContent = 'Nie udało się pobrać statusu serwera';
+        });
+    </script>
   </body>
 </html>
