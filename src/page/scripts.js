@@ -38,8 +38,16 @@ function goToApiDocs() {
 function goToFrontend() {
   window.location.href = "https://kapustaapp.vercel.app/";
 }
-
 window.onload = () => {
+const apiDocsButton = 
+document.getElementById('goToApiDocs')
+if(apiDocsButton) {apiDocsButton.addEventListener('click',goToApiDocs);}
+                 
+
+const frontendButton = 
+document.getElementById('goToFrontend')
+if(frontendButton){apiDocsButton.addEventListener('click',goToFrontend);}
+                  
   addRandomCabbages();
   setInterval(rotateAllCabbages, 3000);
 };
