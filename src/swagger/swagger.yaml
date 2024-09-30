@@ -223,53 +223,14 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                description:
-                  type: string
-                  example: "Wypłata"
-                amount:
-                  type: integer
-                  example: 5000
-                date:
-                  type: string
-                  format: date
-                  example: 2024-05-01
-                category:
-                  type: string
-                  enum: ["Salary", "Add. income"]
-              required:
-                - description
-                - amount
-                - date
-                - category
+              $ref: "#/components/schemas/AddIncomeRequest"
       responses:
         "200":
           description: Income successfully added
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  newBalance:
-                    type: integer
-                    example: 6000
-                  transaction:
-                    type: object
-                    properties:
-                      description:
-                        type: string
-                        example: "Wypłata"
-                      amount:
-                        type: integer
-                        example: 5000
-                      date:
-                        type: string
-                        format: date
-                        example: 2024-05-01
-                      category:
-                        type: string
-                        enum: ["Salary", "Add. income"]
+                $ref: "#/components/schemas/AddIncomeResponse"
         "400":
           description: Invalid input data
         "401":
@@ -277,7 +238,7 @@ paths:
         "404":
           description: User not found
 
-  /transaction/{transactionId}:
+  /transaction/::transactionId:
     delete:
       tags:
         - Transactions
@@ -288,19 +249,14 @@ paths:
         - in: path
           name: transactionId
           required: true
-          schema:
-            type: string
+          type: string
           description: ID of the transaction to delete
       responses:
         "200":
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  newBalance:
-                    type: integer
-                    example: 1000
+                $ref: "#/components/schemas/DeleteTransactionResponse"
         "400":
           description: Invalid transaction ID
         "401":
@@ -329,27 +285,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  incomes:
-                    type: object
-                    properties:
-                      total:
-                        type: integer
-                        example: 500
-                      incomesData:
-                        type: object
-                        additionalProperties:
-                          type: object
-                          properties:
-                            total:
-                              type: integer
-                              example: 100
-                          additionalProperties:
-                            type: integer
-                            example: 100
-                            "Salary": 500
-
+                $ref: "#/components/schemas/GetPeriodDataResponse"
         "400":
           description: Invalid date format
         "401":
@@ -370,20 +306,7 @@ paths:
           content:
             application/json:
               schema:
-                type: string
-                example:
-                  - Products
-                  - Alcohol
-                  - Entertainment
-                  - Health
-                  - Transport
-                  - Housing
-                  - Technique
-                  - "Communal, communication"
-                  - "Sports, hobbies"
-                  - Education
-                  - Other
-                description: Expense categories
+                $ref: "#/components/schemas/GetExpenseCategoriesResponse"
         "401":
           description: Unauthorized
         "404":
@@ -402,11 +325,7 @@ paths:
           content:
             application/json:
               schema:
-                type: string
-                example:
-                  - Salary
-                  - "Add. income"
-                description: Income categories
+                $ref: "#/components/schemas/GetIncomeCategoriesResponse"
         "401":
           description: Unauthorized
         "404":
@@ -606,7 +525,7 @@ components:
                 example: "66fae1a3b64a8717ea4cb276"
               description:
                 type: string
-                example: "Grocery shopping"
+                example: "Groceries"
               amount:
                 type: number
                 example: 122
@@ -672,7 +591,7 @@ components:
       properties:
         description:
           type: string
-          example: "Zakupy spożywcze"
+          example: "Groceries"
         amount:
           type: integer
           example: 200
@@ -710,7 +629,7 @@ components:
           properties:
             description:
               type: string
-              example: "Zakupy spożywcze"
+              example: "Groceries"
             amount:
               type: integer
               example: 200
@@ -750,6 +669,115 @@ components:
           enum:
             - Salary
             - "Add. income"
+    AddIncomeRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          example: "Salary"
+        amount:
+          type: integer
+          example: 5000
+        date:
+          type: string
+          format: date
+          example: 2024-05-01
+        category:
+          type: string
+          enum:
+            - Salary
+            - "Add. income"
+      required:
+        - description
+        - amount
+        - date
+        - category
+    AddIncomeResponse:
+      type: object
+      properties:
+        newBalance:
+          type: integer
+          example: 6000
+        transaction:
+          type: object
+          properties:
+            description:
+              type: string
+              example: "Salary"
+            amount:
+              type: integer
+              example: 5000
+            date:
+              type: string
+              format: date
+              example: 2024-05-01
+            category:
+              type: string
+              enum:
+                - Salary
+                - "Add. income"
+    DeleteTransactionResponse:
+      type: object
+      properties:
+        newBalance:
+          type: integer
+          example: 1000
+
+    GetPeriodDataResponse:
+      type: object
+      properties:
+        incomes:
+          type: object
+          properties:
+            total:
+              type: integer
+              description: Total amount from incomes for this period
+              example: 500
+            incomesData:
+              type: object
+          example:
+            Salary:
+              total: 500
+              Wypłata: 500
+        expenses:
+          type: object
+          properties:
+            total:
+              type: integer
+              description: Total amount from expenses for this period
+              example: 822
+            expensesData:
+              type: object
+              example:
+                Alcohol:
+                  total: 122
+                  Groceries: 122
+                Transport:
+                  total: 700
+                  Gas: 350
+                  Insurance: 350
+
+    GetExpenseCategoriesResponse:
+      description: Expense categories
+      type: string
+      example:
+        - Products
+        - Alcohol
+        - Entertainment
+        - Health
+        - Transport
+        - Housing
+        - Technique
+        - "Communal, communication"
+        - "Sports, hobbies"
+        - Education
+        - Other
+    GetIncomeCategoriesResponse:
+      description: Income categories
+      type: string
+      example:
+        - Salary
+        - "Add. income"
 
 securitySchemes:
   BearerAuth:
