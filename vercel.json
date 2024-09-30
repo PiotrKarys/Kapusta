@@ -10,6 +10,10 @@
       "use": "@vercel/static"
     },
     {
+      "src": "node_modules/swagger-ui-dist/**",
+      "use": "@vercel/static"
+    },
+    {
       "src": "assets/**",
       "use": "@vercel/static"
     }
@@ -32,8 +36,13 @@
       "dest": "/src/page/cabbage.svg"
     },
     {
+      "src": "/api-docs/(swagger-ui-bundle\\.js|swagger-ui-standalone-preset\\.js|swagger-ui\\.css)",
+      "dest": "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "/src/server.js"
-    }
+    },
+    { "src": "/api-docs", "dest": "/src/server.js" }
   ]
 }
