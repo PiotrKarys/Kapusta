@@ -157,34 +157,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    description:
-                      type: string
-                      example: "Zakupy spożywcze"
-                    amount:
-                      type: integer
-                      example: 200
-                    date:
-                      type: string
-                      format: date
-                      example: 2024-05-01
-                    category:
-                      type: string
-                      enum:
-                        - Products
-                        - Alcohol
-                        - Entertainment
-                        - Health
-                        - Transport
-                        - Housing
-                        - Technique
-                        - "Communal, communication"
-                        - "Sports, hobbies"
-                        - Education
-                        - Other
+                $ref: "#/components/schemas/GetExpensesResponse"
         "400":
           description: no token provided
         "401":
@@ -203,75 +176,14 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                description:
-                  type: string
-                  example: "Zakupy spożywcze"
-                amount:
-                  type: integer
-                  example: 200
-                date:
-                  type: string
-                  format: date
-                  example: 2024-05-01
-                category:
-                  type: string
-                  enum:
-                    - Products
-                    - Alcohol
-                    - Entertainment
-                    - Health
-                    - Transport
-                    - Housing
-                    - Technique
-                    - "Communal, communication"
-                    - "Sports, hobbies"
-                    - Education
-                    - Other
-              required:
-                - description
-                - amount
-                - date
-                - category
+              $ref: "#/components/schemas/AddExpenseRequest"
       responses:
         "200":
           description: Expense successfully added
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  newBalance:
-                    type: integer
-                    example: 5800
-                  transaction:
-                    type: object
-                    properties:
-                      description:
-                        type: string
-                        example: "Zakupy spożywcze"
-                      amount:
-                        type: integer
-                        example: 200
-                      date:
-                        type: string
-                        format: date
-                        example: 2024-05-01
-                      category:
-                        type: string
-                        enum:
-                          - Products
-                          - Alcohol
-                          - Entertainment
-                          - Health
-                          - Transport
-                          - Housing
-                          - Technique
-                          - "Communal, communication"
-                          - "Sports, hobbies"
-                          - Education
-                          - Other
+                $ref: "#/components/schemas/AddExpenseResponse"
         "400":
           description: Invalid input data
         "401":
@@ -292,23 +204,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    description:
-                      type: string
-                      example: "Wypłata"
-                    amount:
-                      type: integer
-                      example: 5000
-                    date:
-                      type: string
-                      format: date
-                      example: 2024-05-01
-                    category:
-                      type: string
-                      enum: ["Salary", "Add. income"]
+                $ref: "#/components/schemas/GetIncomesResponse"
         "400":
           description: no token provided
         "401":
@@ -696,6 +592,164 @@ components:
                 type: string
                 description: Transaction's id
                 example: 507f1f77bcf86cd799439013
+
+    GetExpensesResponse:
+      type: object
+      properties:
+        expenses:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+                example: "66fae1a3b64a8717ea4cb276"
+              description:
+                type: string
+                example: "Grocery shopping"
+              amount:
+                type: number
+                example: 122
+              date:
+                type: string
+                format: date
+                example: "2024-05-05"
+              category:
+                type: array
+                items:
+                  type: string
+                example: ["Alcohol"]
+              type:
+                type: string
+                example: "expense"
+              user:
+                type: string
+                example: "66fac2eaed61517715ec05d0"
+              __v:
+                type: number
+                example: 0
+        monthStats:
+          type: object
+          properties:
+            January:
+              type: string
+              example: "N/A"
+            February:
+              type: string
+              example: "N/A"
+            March:
+              type: string
+              example: "N/A"
+            April:
+              type: string
+              example: "N/A"
+            May:
+              type: number
+              example: -122
+            June:
+              type: string
+              example: "N/A"
+            July:
+              type: string
+              example: "N/A"
+            August:
+              type: string
+              example: "N/A"
+            September:
+              type: string
+              example: "N/A"
+            October:
+              type: string
+              example: "N/A"
+            November:
+              type: string
+              example: "N/A"
+            December:
+              type: string
+              example: "N/A"
+    AddExpenseRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          example: "Zakupy spożywcze"
+        amount:
+          type: integer
+          example: 200
+        date:
+          type: string
+          format: date
+          example: 2024-05-01
+        category:
+          type: string
+          enum:
+            - Products
+            - Alcohol
+            - Entertainment
+            - Health
+            - Transport
+            - Housing
+            - Technique
+            - "Communal, communication"
+            - "Sports, hobbies"
+            - Education
+            - Other
+      required:
+        - description
+        - amount
+        - date
+        - category
+    AddExpenseResponse:
+      type: object
+      properties:
+        newBalance:
+          type: integer
+          example: 5800
+        transaction:
+          type: object
+          properties:
+            description:
+              type: string
+              example: "Zakupy spożywcze"
+            amount:
+              type: integer
+              example: 200
+            date:
+              type: string
+              format: date
+              example: 2024-05-01
+            category:
+              type: string
+              enum:
+                - Products
+                - Alcohol
+                - Entertainment
+                - Health
+                - Transport
+                - Housing
+                - Technique
+                - "Communal, communication"
+                - "Sports, hobbies"
+                - Education
+                - Other
+    GetIncomesResponse:
+      type: object
+      properties:
+        description:
+          type: string
+          example: "Salary"
+        amount:
+          type: integer
+          example: 5000
+        date:
+          type: string
+          format: date
+          example: 2024-05-01
+        category:
+          type: string
+          enum:
+            - Salary
+            - "Add. income"
 
 securitySchemes:
   BearerAuth:
