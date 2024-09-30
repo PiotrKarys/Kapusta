@@ -2,9 +2,17 @@
   "version": 2,
   "builds": [
     { "src": "src/server.js", "use": "@vercel/node" },
-    { "src": "node_modules/swagger-ui-dist/**", "use": "@vercel/static" }
+    { "src": "src/page/**", "use": "@vercel/static" },
+    { "src": "node_modules/swagger-ui-dist/**", "use": "@vercel/static" },
+    { "src": "assets/**", "use": "@vercel/static" }
   ],
   "routes": [
+    { "src": "/", "dest": "/src/page/index.html" },
+    { "src": "/index.html", "dest": "/src/page/index.html" },
+    { "src": "/scripts.js", "dest": "/src/page/scripts.js" },
+    { "src": "/assets/(.*)", "dest": "/assets/$1" },
+    { "src": "/static/(.*)", "dest": "/src/page/$1" },
+    { "src": "/cabbage.svg", "dest": "/src/page/cabbage.svg" },
     {
       "src": "/api-docs/(swagger-ui-bundle\\.js|swagger-ui-standalone-preset\\.js|swagger-ui\\.css)",
       "dest": "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/$1"
