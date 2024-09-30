@@ -19,6 +19,37 @@ const app = express();
 const swaggerDocument = YAML.load(
   path.join(__dirname, "swagger", "swagger.yaml")
 );
+
+app.use(helmet());
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(",");
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    credentials: true,
+  })
+);
+
+app.options("*", cors());
+
+const formatsLogger = app.get("env") === "development" ? "dev" : "short";
+
+cleanupBlacklist();
+
+app.use(logger(formatsLogger));
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "page")));
+app.use("/assets", express.static(path.join(__dirname, "../assets")));
+app.use(passport.initialize());
+
 app.use("/api-docs", swaggerUi.serve);
 app.get(
   "/api-docs",
@@ -33,32 +64,6 @@ app.get(
     customSiteTitle: "API Documentation",
   })
 );
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-const formatsLogger = app.get("env") === "development" ? "dev" : "short";
-
-cleanupBlacklist();
-
-app.use(logger(formatsLogger));
-app.use(helmet());
-const allowedOrigins = process.env.ALLOWED_ORIGINS.split(",");
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-    credentials: true,
-  })
-);
-app.use(express.json());
-app.use(express.static(path.join(__dirname, "page")));
-app.use("/assets", express.static(path.join(__dirname, "../assets")));
-app.use(passport.initialize());
 
 app.use("/", pageRoutes);
 app.use("/auth", authRoutes);
