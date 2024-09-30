@@ -49,3 +49,11 @@ window.addEventListener("resize", () => {
   container.innerHTML = "";
   addRandomCabbages();
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const apiDocsButton = document.getElementById("apiDocsButton");
+  const frontendButton = document.getElementById("frontendButton");
+
+  apiDocsButton.addEventListener("click", goToApiDocs);
+  frontendButton.addEventListener("click", goToFrontend);
+});
