@@ -6,7 +6,8 @@ info:
 servers:
   - url: https://kapusta-serv.vercel.app
   - url: http://localhost:3001
-
+security:
+  - BearerAuth: []
 paths:
   /auth/register:
     post:
@@ -332,6 +333,11 @@ paths:
           description: User not found
 
 components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     RegisterRequest:
       type: object
@@ -779,8 +785,4 @@ components:
         - Salary
         - "Add. income"
 
-securitySchemes:
-  BearerAuth:
-    type: http
-    scheme: bearer
-    bearerFormat: JWT
+
