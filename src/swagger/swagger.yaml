@@ -427,11 +427,11 @@ components:
     RefreshTokenRequest:
       type: object
       properties:
-        refreshToken:
+        sid:
           type: string
           example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
       required:
-        - refreshToken
+        - sid
     RefreshTokenResponse:
       type: object
       properties:
@@ -778,9 +778,12 @@ components:
       example:
         - Salary
         - "Add. income"
+<<<<<<< Updated upstream
 
 securitySchemes:
   BearerAuth:
     type: http
     scheme: bearer
     bearerFormat: JWT
+=======
+>>>>>>> Stashed changes
