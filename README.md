@@ -19,7 +19,15 @@ Aplikacja będzie dostępna pod adresem: `http://localhost:<PORT>`
 
 Dokumentacja API jest dostępna pod adresem:
 
-`http://localhost:<PORT>/api-docs` `https://kapusta-serv.vercel.app/api-docs`
+`localhost:"<PORT>"/api-docs` 
+
+`https://kapusta-serv.vercel.app/api-docs`
+
+## Strona aplikacji:
+
+Strona aplikacji jest dostępna pod adresem:
+
+`https://kapustaapp.vercel.app/`
 
 ## Funkcje
 
