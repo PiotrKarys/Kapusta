@@ -16,8 +16,8 @@ const userSchema = new Schema({
     unique: true,
   },
   balance: {
-    type: Number,
-    default: 0,
+    type: mongoose.Types.Decimal128,
+    default: mongoose.Types.Decimal128.fromString("0.00"),
   },
   accessToken: {
     type: String,
@@ -33,7 +33,7 @@ const userSchema = new Schema({
   },
   transactions: [
     {
-      type: Schema.Types.ObjectId, 
+      type: Schema.Types.ObjectId,
       ref: "Transaction",
     },
   ],

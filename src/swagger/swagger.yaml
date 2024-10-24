@@ -340,6 +340,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+
   schemas:
     RegisterRequest:
       type: object
@@ -786,9 +787,3 @@ components:
       example:
         - Salary
         - "Add. income"
-securitySchemes:
-  BearerAuth:
-    type: http
-    scheme: bearer
-    bearerFormat: JWT
-
