@@ -3,6 +3,7 @@ const {
   expenseCategories,
 } = require("../../models/transactionModel");
 const User = require("../../models/userModel");
+const mongoose = require("mongoose");
 
 const addExpense = async (req, res, next) => {
   try {
@@ -35,7 +36,9 @@ const addExpense = async (req, res, next) => {
     const user = await User.findById(userId);
     user.transactions.push(newTransaction._id);
 
-    user.balance -= amount;
+    user.balance = mongoose.Types.Decimal128.fromString(
+      (parseFloat(user.balance) - amount).toFixed(2)
+    );
 
     await user.save();
 

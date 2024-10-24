@@ -11,7 +11,7 @@ const currentUser = async (req, res, next) => {
     }
     res.status(200).json({
       email: user.email,
-      balance: user.balance,
+      balance: parseFloat(user.balance.toString()),
       transactions: user.transactions,
     });
   } catch (err) {

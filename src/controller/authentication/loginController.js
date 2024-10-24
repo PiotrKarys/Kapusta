@@ -49,7 +49,7 @@ const login = async (req, res, next) => {
       sid,
       user: {
         email: user.email,
-        balance: user.balance,
+        balance: parseFloat(user.balance.toString()),
         id: user.id,
         transactions: filteredTransactions,
       },
